@@ -1,9 +1,19 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Module({
-  imports: [],
+  imports: [
+    MongooseModule.forRoot(
+      `mongodb+srv://cookie:${process.env.MONGO_DB_PASSWORD}@cluster0.hhxhydt.mongodb.net/test`,
+    ),
+    UsersModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
